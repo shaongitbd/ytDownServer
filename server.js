@@ -146,5 +146,5 @@ function filterFormats(formats) {
 }
 
 app.listen(process.env.PORT || 4003, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log("running");
 });

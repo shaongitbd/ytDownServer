@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+BUILD_DIR=${1:-}
+cd $BUILD_DIR
+mkdir -p vendor/yt
+cd vendor/yt
+curl --location https://github.com/yt-dlp/yt-dlp/releases/download/2022.02.04/yt-dlp -o yt-dlp
+echo '91c667e0521951198e0fe348cad30b8f9c6b9b74  yt-dlp' > yt-dlp.sha
+sha1sum --check yt-dlp.sha
+chmod a+rx yt-dlp
+./yt-dlp --version
+PROFILE_PATH="$BUILD_DIR/.profile.d/yt-dlp.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$PATH:/app/vendor/yt"' >> $PROFILE_PATH
